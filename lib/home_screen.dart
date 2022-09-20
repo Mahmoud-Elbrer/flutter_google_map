@@ -50,6 +50,18 @@ class _HomeScreenState extends State<HomeScreen> {
           _controller.complete(controller);
         },
       ),
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.location_history_outlined),
+          onPressed: () async {
+            GoogleMapController googleMapController = await _controller.future;
+            googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+              const CameraPosition(
+                target: LatLng(24.229198, 55.780794),
+                zoom: 14,
+              ),
+            ));
+            setState(() {});
+          }),
     );
   }
 }
