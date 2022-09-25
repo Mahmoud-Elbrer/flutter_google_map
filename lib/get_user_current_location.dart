@@ -30,9 +30,9 @@ class _GetUserCurrentLocationState extends State<GetUserCurrentLocation> {
   ];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _marker.addAll(_list);
+    //loadData() ;
   }
 
   loadData() {
