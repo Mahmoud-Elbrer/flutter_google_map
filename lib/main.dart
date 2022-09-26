@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_map_app/custom_marker_screen.dart';
+import 'package:google_map_app/draw_polygon_screen.dart';
 import 'package:google_map_app/home_screen.dart';
 
 void main() {
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const CustomMarkerScreen(),
+      home: const DrawPolygonScreen(),
     );
   }
 }
