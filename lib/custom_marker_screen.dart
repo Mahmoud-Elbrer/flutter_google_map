@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,6 +14,9 @@ class CustomMarkerScreen extends StatefulWidget {
 }
 
 class _CustomMarkerScreenState extends State<CustomMarkerScreen> {
+
+CustomInfoWindowController _customInfoWindowController =  CustomInfoWindowController();
+
   Completer<GoogleMapController> _controller = Completer();
 
   List<String> images = [
@@ -52,6 +56,24 @@ class _CustomMarkerScreenState extends State<CustomMarkerScreen> {
           position: _latLng[i],
           infoWindow: InfoWindow(title: 'index : '.toString() + i.toString()),
           icon: BitmapDescriptor.fromBytes(markerIcon),
+          onTap : (){
+            _customInfoWindowController.addInfoWindow!(
+              Container(
+                height:  200,
+                width: 200,
+                decoration:  const BoxDecoration(
+                  color: Colors.green,
+                ),
+                child: Column(
+                  children: [
+                    Text('Hello'),
+                    Text(images[i]),
+                  ],
+                ),
+              ) ,
+              _latLng[i]
+            ); 
+          }
         ),
       );
       setState(() {});
@@ -73,16 +95,28 @@ class _CustomMarkerScreenState extends State<CustomMarkerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: _cameraPosition,
-        mapType: MapType.normal,
-        // mapType  : MapType.satellite ,
-        markers: Set<Marker>.of(_markers),
-        compassEnabled: true,
-        myLocationEnabled: true,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+      body: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition: _cameraPosition,
+            mapType: MapType.normal,
+            // mapType  : MapType.satellite ,
+            markers: Set<Marker>.of(_markers),
+            compassEnabled: true,
+            myLocationEnabled: true,
+            onTap : (position){
+              _customInfoWindowController.hideInfoWindow!() ;
+            } ,
+            onCameraMove : (position){
+               _customInfoWindowController.onCameraMove!() ;
+            } ,
+            onMapCreated: (GoogleMapController controller) {
+             // _controller.complete(controller);
+             _customInfoWindowController.googleMapController = controller;
+            },
+          ),
+          CustomInfoWindow(controller: _customInfoWindowController ,height:  200 ,width: 100 ,  offset: 35, ) ,
+        ],
       ),
     );
   }
