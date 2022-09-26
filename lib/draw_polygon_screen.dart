@@ -29,7 +29,7 @@ class _DrawPolygonScreenState extends State<DrawPolygonScreen> {
 
   static const CameraPosition _cameraPosition = CameraPosition(
     target: LatLng(24.197178, 55.659672),
-    zoom: 16.4746,
+    zoom: 18.4746,
   );
 
   Set<Polygon> _polygons = HashSet<Polygon>();

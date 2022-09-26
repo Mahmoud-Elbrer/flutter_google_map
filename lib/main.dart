@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_map_app/custom_marker_screen.dart';
 import 'package:google_map_app/draw_polygon_screen.dart';
 import 'package:google_map_app/home_screen.dart';
+import 'package:google_map_app/route_polylines_screen%20copy.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const DrawPolygonScreen(),
+      home: const RoutePolylinesScreen(),
     );
   }
 }
